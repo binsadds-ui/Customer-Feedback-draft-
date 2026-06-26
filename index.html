@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Item Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF6B00;
+            --primary-hover: #E05E00;
+            --bg-white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --border-color: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .feedback-container {
+            background: var(--bg-white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-top: 8px solid var(--primary-orange);
+            padding: 2.5rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            background-color: var(--bg-light);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+            background-color: var(--bg-white);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
+        }
+
+        /* Star Rating */
+        .rating-group {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .rating-group input {
+            display: none;
+        }
+
+        .rating-group label {
+            font-size: 1.75rem;
+            color: #D1D5DB;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            margin-bottom: 0;
+        }
+
+        .rating-group input:checked ~ label,
+        .rating-group label:hover,
+        .rating-group label:hover ~ label {
+            color: var(--primary-orange);
+        }
+
+        /* File Upload */
+        .file-dropzone {
+            position: relative;
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: var(--bg-light);
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .file-dropzone:hover {
+            border-color: var(--primary-orange);
+        }
+
+        .file-dropzone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-dropzone p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .file-dropzone span {
+            color: var(--primary-orange);
+            font-weight: 500;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-orange);
+            color: var(--bg-white);
+            border: none;
+            padding: 0.85rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .btn-submit:disabled {
+            background-color: #D1D5DB;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="feedback-container">
+    <div class="header">
+        <h1>Customer Item Feedback</h1>
+        <p>Your experience matters to us. Please share your thoughts below.</p>
+    </div>
+
+    <form id="feedbackForm">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Complete Address</label>
+            <input type="text" id="address" name="address" placeholder="123 Street, City, Country" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone/Telephone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
+        </div>
+
+        <div class="form-group">
+            <label>Star Rating</label>
+            <div class="rating-group">
+                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback">Feedback</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="Tell us about the item..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Photo/Video Upload</label>
+            <div class="file-dropzone">
+                <input type="file" id="media" name="media" accept="image/*,video/*">
+                <p id="file-label">Drag & drop media files here or <span>browse</span></p>
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">Submit Feedback</button>
+    </form>
+</div>
+
+<script>
+    // Updated Cloudinary API target configurations
+    const CLOUDINARY_URL = '
